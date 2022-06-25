@@ -1,0 +1,27 @@
+{
+    "name": "kelvinseverino/php-api",
+    "description": "PHP API",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Kelvin Severino",
+            "role": "Developer"
+        }
+    ],
+    "license": "proprietary",
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "autoload": {
+        "psr-4": {
+            "Source\\": "source"
+        },
+        "files": [
+            "source/Boot/Config.php"
+        ]
+    },
+    "require": {
+        "php": "^8.1",
+        "ext-pdo": "^8.1"
+    }
+  }

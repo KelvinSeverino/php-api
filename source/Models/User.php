@@ -56,4 +56,30 @@ class User
             throw new \Exception("Nenhum Usuário encontrado!");
         }
     }
+
+    public static function insert($data)
+    {
+        //Realizando conexao com o BD
+        try{
+            $connPdo = new PDO('mysql:host='.CONF_DB_HOST.';dbname=' . CONF_DB_NAME, CONF_DB_USER, CONF_DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));	
+        } catch ( PDOException $e ) {
+            echo "Erro: " . $e->getMessage() . " <br/>";
+        }        
+
+        $sql = 'INSERT INTO '.self::$table. ' (email, nome, senha) VALUES (:email, :nome, :senha)';
+        $stmt = $connPdo->prepare($sql);        
+        $stmt->bindValue(':email', $data['email']);
+        $stmt->bindValue(':nome', $data['name']);
+        $stmt->bindValue(':senha', $data['pass']);
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0)
+        {
+            return 'Usuário inserido com sucesso!';
+        }
+        else
+        {            
+            throw new \Exception("Falha ao inserir usuário!");
+        }
+    }
 }

@@ -42,7 +42,7 @@
                     'status' => 'error',
                     'data' => $e->getMessage()
                 ), JSON_UNESCAPED_UNICODE);
-                exit;
+                exit;                
             }
         }
     }

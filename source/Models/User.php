@@ -60,11 +60,7 @@ class User
     public static function insert($data)
     {
         //Realizando conexao com o BD
-        try{
-            $connPdo = new PDO('mysql:host='.CONF_DB_HOST.';dbname=' . CONF_DB_NAME, CONF_DB_USER, CONF_DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));	
-        } catch ( PDOException $e ) {
-            echo "Erro: " . $e->getMessage() . " <br/>";
-        }        
+        $connPdo = new PDO('mysql:host='.CONF_DB_HOST.';dbname=' . CONF_DB_NAME, CONF_DB_USER, CONF_DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));	     
 
         $sql = 'INSERT INTO '.self::$table. ' (email, nome, senha) VALUES (:email, :nome, :senha)';
         $stmt = $connPdo->prepare($sql);        

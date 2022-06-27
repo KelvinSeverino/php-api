@@ -78,4 +78,27 @@ class User
             throw new \Exception("Falha ao inserir usuário!");
         }
     }
+
+    public static function updateUser($data, $id)
+    {
+        //Realizando conexao com o BD
+        $connPdo = new PDO('mysql:host='.CONF_DB_HOST.';dbname=' . CONF_DB_NAME, CONF_DB_USER, CONF_DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));	     
+
+        $sql = 'UPDATE '.self::$table. ' SET email = :email, nome = :nome, senha = :senha WHERE id = :id';
+        $stmt = $connPdo->prepare($sql);        
+        $stmt->bindValue(':email', $data['email']);
+        $stmt->bindValue(':nome', $data['nome']);
+        $stmt->bindValue(':senha', $data['senha']);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0)
+        {
+            return 'Usuário atualizado com sucesso!';
+        }
+        else
+        {            
+            throw new \Exception("Falha ao atualizar usuário!");
+        }
+    }
 }

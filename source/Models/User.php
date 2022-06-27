@@ -101,4 +101,24 @@ class User
             throw new \Exception("Falha ao atualizar usuário!");
         }
     }
+
+    public static function destroy($id)
+    {
+        //Realizando conexao com o BD
+        $connPdo = new PDO('mysql:host='.CONF_DB_HOST.';dbname=' . CONF_DB_NAME, CONF_DB_USER, CONF_DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));	     
+
+        $sql = 'DELETE FROM '.self::$table. ' WHERE id = :id';
+        $stmt = $connPdo->prepare($sql);        
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0)
+        {
+            return 'Usuário deletado com sucesso!';
+        }
+        else
+        {            
+            throw new \Exception("Falha ao deletar usuário!");
+        }
+    }
 }

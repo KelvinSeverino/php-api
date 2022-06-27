@@ -41,8 +41,15 @@ class Users
         }
     }
 
-    public function delete()
+    public function delete($id)
     {
-
+        if($id)
+        {
+            return User::destroy($id);
+        }
+        else
+        {
+            throw new \Exception("ID do usuário não foi informado!");
+        }
     }
 }
